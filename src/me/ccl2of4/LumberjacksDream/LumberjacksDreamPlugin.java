@@ -9,8 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class LumberjacksDreamPlugin extends JavaPlugin
 {
-    //public static BetterPlantingLogger log;
-
     // Called when the server is being disabled.
     public void onDisable ()
     {
@@ -20,11 +18,13 @@ public class LumberjacksDreamPlugin extends JavaPlugin
     // Called when the server is being enabled.
     public void onEnable ()
     {
-        //log = new BetterPlantingLogger (this);
-
         // Register the events.
-        //getServer().getPluginManager().registerEvents(new BetterPlantingBlockListener(this), this);
-        //log.info(this.getDescription().getName() + " version " + this.getDescription().getVersion() + " enabled!");
+        getServer().getPluginManager().registerEvents (new LumberjacksDreamListener (), this);
+
+        // Set up the logger
+        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger();
+        logger.setPlugin(this);
+        logger.info(this.getDescription().getName() + " version " + this.getDescription().getVersion() + " enabled!");
     }
 
     public boolean onCommand (CommandSender sender, Command cmd, String s, String[] args)
