@@ -17,7 +17,14 @@ import org.bukkit.Material;
 
 public class LumberjacksDreamListener implements Listener {
 
-    static final int leafDistance = 4;
+    private static final Set<Material> treeBaseMaterials = new HashSet<Material> (
+        Arrays.asList (
+            new Material[] {
+                Material.DIRT,
+                Material.GRASS
+            }
+        )
+    );
 
     @EventHandler
     public final void onBlockBreak (BlockBreakEvent event) {
@@ -48,25 +55,25 @@ public class LumberjacksDreamListener implements Listener {
      */
     private static final boolean checkIfTreeTrunk (Block block) {
 
-        final Material[] materialsArray = {
-                Material.DIRT,
-                Material.GRASS
-        };
-        final Set<Material> materials = new HashSet<Material>(Arrays.asList(materialsArray));
-
-        Material material = block.getType ();
+        Material material = block.getType();
 
         while (material == Material.LOG) {
             block = block.getRelative(BlockFace.DOWN);
-            material = block.getType ();
+            material = block.getType();
 
-            if (materials.contains (material)) {
+            if (treeBaseMaterials.contains(material)) {
                 return true;
+            }
         }
 
         return false;
     }
 
+    /**
+     *
+      * @param block the block the player has broken
+     * @param tool the tool the player used to break the block
+     */
     private final void applyEffect (Block block, ItemStack tool) {
 
         LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
