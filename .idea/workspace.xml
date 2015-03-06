@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42e7319a-c035-424e-aad7-a8cde724ce3a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LumberjacksDream.iml" afterPath="$PROJECT_DIR$/LumberjacksDream.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java" afterPath="$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lumberjacks-Dream.iws" />
@@ -39,12 +37,25 @@
       <file leaf-file-name="LumberjacksDreamListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37775445" vertical-offset="702" max-vertical-offset="1782">
-              <caret line="59" column="18" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.3578174" vertical-offset="1243" max-vertical-offset="2196">
+              <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1409#1416#0" expanded="true" />
-                <element signature="e#1472#1479#0" expanded="true" />
+                <element signature="e#1578#1588#0" expanded="true" />
+                <element signature="e#2118#2125#0" expanded="true" />
+                <element signature="e#2177#2184#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LumberjacksDreamLogger.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamLogger.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -419,12 +430,12 @@
       <workItem from="1425667318736" duration="552000" />
       <workItem from="1425668276944" duration="1573000" />
       <workItem from="1425671356187" duration="18000" />
-      <workItem from="1425671677761" duration="2987000" />
+      <workItem from="1425671677761" duration="4164000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7300000" />
+    <option name="totallyTimeSpent" value="8477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="24" width="1920" height="1056" extended-state="6" />
@@ -580,32 +591,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamLogger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3085443" vertical-offset="15" max-vertical-offset="735">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
           <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#556#557#0" expanded="true" />
-            <element signature="e#585#586#0" expanded="true" />
-            <element signature="e#646#647#0" expanded="true" />
-            <element signature="e#682#683#0" expanded="true" />
-            <element signature="e#721#722#0" expanded="true" />
-            <element signature="e#812#813#0" expanded="true" />
-            <element signature="e#853#854#0" expanded="true" />
-            <element signature="e#946#947#0" expanded="true" />
-            <element signature="e#988#989#0" expanded="true" />
-            <element signature="e#1082#1083#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37775445" vertical-offset="702" max-vertical-offset="1782">
-          <caret line="59" column="18" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.3578174" vertical-offset="1243" max-vertical-offset="2196">
+          <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1409#1416#0" expanded="true" />
-            <element signature="e#1472#1479#0" expanded="true" />
+            <element signature="e#1578#1588#0" expanded="true" />
+            <element signature="e#2118#2125#0" expanded="true" />
+            <element signature="e#2177#2184#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -4,8 +4,7 @@ package me.ccl2of4.LumberjacksDream;
  * Created by Connor on 3/6/15.
  */
 
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.*;
 
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -15,7 +14,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
-import java.util.HashSet;
 
 public class LumberjacksDreamListener implements Listener {
 
@@ -35,7 +33,7 @@ public class LumberjacksDreamListener implements Listener {
             ItemStack tool = player.getItemInHand();
             Material toolMaterial = tool.getType ();
 
-            if (toolMaterial == Material.DIAMOND_AXE) {
+            if (toolMaterial == Material.DIAMOND_AXE && checkIfTreeTrunk (block)) {
                 logger.info ("Applying effect!");
                 applyEffect(block, tool);
             }
@@ -43,10 +41,37 @@ public class LumberjacksDreamListener implements Listener {
         }
     }
 
+    /**
+     *
+     * @param block the block in question
+     * @return true if the block is considered to be the trunk of a tree, false otherwise
+     */
+    private static final boolean checkIfTreeTrunk (Block block) {
+
+        final Material[] materialsArray = {
+                Material.DIRT,
+                Material.GRASS
+        };
+        final Set<Material> materials = new HashSet<Material>(Arrays.asList(materialsArray));
+
+        Material material = block.getType ();
+
+        while (material == Material.LOG) {
+            block = block.getRelative(BlockFace.DOWN);
+            material = block.getType ();
+
+            if (materials.contains (material)) {
+                return true;
+        }
+
+        return false;
+    }
+
     private final void applyEffect (Block block, ItemStack tool) {
+
         LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
         Queue<Block> queue = new LinkedList<Block> ();
-        HashSet<Block> exploredBlocks = new HashSet<Block> ();
+        Set<Block> exploredBlocks = new HashSet<Block> ();
 
         do {
 
@@ -54,16 +79,14 @@ public class LumberjacksDreamListener implements Listener {
 
             if (material != Material.LOG && material != Material.LEAVES) {
                 // algorithm stops at non-log, non-leaves blocks
-                logger.info("Found end");
             }
 
             else {
 
                 if (material == Material.LOG) {
-                    logger.info("Found log");
                     block.breakNaturally(tool);
                 } else if (material == Material.LEAVES) {
-                    logger.info("Found leaves");
+                    //do not break leaves
                 }
 
                 Block[] adjacentBlocks = {
