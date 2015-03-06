@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LumberjacksDream">
+    <output-path>$PROJECT_DIR$/out/artifacts/LumberjacksDream</output-path>
+    <root id="archive" name="LumberjacksDream.jar">
+      <element id="module-output" name="Lumberjacks-Dream" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>
