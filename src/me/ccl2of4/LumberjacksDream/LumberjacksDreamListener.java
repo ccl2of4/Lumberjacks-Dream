@@ -113,7 +113,7 @@ public class LumberjacksDreamListener implements Listener {
       * @param block the block the player has broken
      * @param tool the tool the player used to break the block
      */
-    private final void applyEffect (Block block, ItemStack tool) {
+    private static final void applyEffect (Block block, ItemStack tool) {
 
         LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
         Queue<Block> queue = new LinkedList<Block> ();

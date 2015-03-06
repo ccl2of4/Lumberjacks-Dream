@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42e7319a-c035-424e-aad7-a8cde724ce3a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LumberjacksDream/LumberjacksDream.jar" afterPath="$PROJECT_DIR$/out/artifacts/LumberjacksDream/LumberjacksDream.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java" afterPath="$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lumberjacks-Dream.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,8 +36,8 @@
       <file leaf-file-name="LumberjacksDreamListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.3588667" vertical-offset="1171" max-vertical-offset="3078">
-              <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.5844701" vertical-offset="1477" max-vertical-offset="3078">
+              <caret line="113" column="45" selection-start-line="113" selection-start-column="45" selection-end-line="113" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -429,12 +427,12 @@
       <workItem from="1425668276944" duration="1573000" />
       <workItem from="1425671356187" duration="18000" />
       <workItem from="1425671677761" duration="6711000" />
-      <workItem from="1425678579385" duration="2064000" />
+      <workItem from="1425678579385" duration="2203000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13088000" />
+    <option name="totallyTimeSpent" value="13227000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="24" width="1920" height="1056" extended-state="6" />
@@ -610,8 +608,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/ccl2of4/LumberjacksDream/LumberjacksDreamListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3588667" vertical-offset="1171" max-vertical-offset="3078">
-          <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.5844701" vertical-offset="1477" max-vertical-offset="3078">
+          <caret line="113" column="45" selection-start-line="113" selection-start-column="45" selection-end-line="113" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
