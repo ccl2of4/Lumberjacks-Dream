@@ -17,11 +17,38 @@ import org.bukkit.Material;
 
 public class LumberjacksDreamListener implements Listener {
 
+    private static final Set<Material> treeMaterials = new HashSet<Material> (
+        Arrays.asList (
+            new Material[] {
+                Material.LOG,
+                Material.LOG_2
+            }
+        )
+    );
+
+    private static final Set<Material> passThroughMaterials = new HashSet<Material> (
+        Arrays.asList (
+            new Material[] {
+                Material.LEAVES,
+            }
+        )
+    );
+
     private static final Set<Material> treeBaseMaterials = new HashSet<Material> (
         Arrays.asList (
             new Material[] {
                 Material.DIRT,
-                Material.GRASS
+                Material.GRASS,
+                Material.GRAVEL
+            }
+        )
+    );
+
+    private static final Set<Material> eligibleToolMaterials = new HashSet<Material> (
+        Arrays.asList (
+            new Material[] {
+                Material.WOOD_AXE,
+                Material.DIAMOND_AXE
             }
         )
     );
@@ -33,14 +60,15 @@ public class LumberjacksDreamListener implements Listener {
         Block block = event.getBlock ();
         Material blockMaterial = block.getType ();
 
-        if (blockMaterial == Material.LOG) {
+        if (treeMaterials.contains (blockMaterial)) {
 
             Player player = event.getPlayer ();
             ItemStack tool = player.getItemInHand();
             Material toolMaterial = tool.getType ();
 
-            if (toolMaterial == Material.DIAMOND_AXE && checkIfTreeTrunk (block)) {
+            if (eligibleToolMaterials.contains (toolMaterial) && checkIfTreeTrunk (block)) {
                 applyEffect(block, tool);
+                updateTool (player, tool);
             }
 
         }
@@ -53,19 +81,31 @@ public class LumberjacksDreamListener implements Listener {
      */
     private static final boolean checkIfTreeTrunk (Block block) {
 
+        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
         Material material = block.getType();
 
         // go straight down until we find a dirt block
-        while (material == Material.LOG) {
+        while (treeMaterials.contains (material)) {
             block = block.getRelative(BlockFace.DOWN);
             material = block.getType();
 
-            if (treeBaseMaterials.contains(material)) {
+            if (treeBaseMaterials.contains (material)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    private static final void updateTool (Player player, ItemStack tool) {
+        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
+
+        short durability = tool.getDurability ();
+        short maxDurability = tool.getType().getMaxDurability ();
+
+        if (durability == maxDurability) {
+            player.getInventory().remove (tool);
+        }
     }
 
     /**
@@ -83,16 +123,20 @@ public class LumberjacksDreamListener implements Listener {
 
             Material material = block.getType ();
 
-            if (material != Material.LOG && material != Material.LEAVES) {
+            if (!treeMaterials.contains (material) && !passThroughMaterials.contains (material)) {
                 // algorithm stops at non-log, non-leaves blocks
             }
 
             else {
 
-                if (material == Material.LOG) {
-                    block.breakNaturally(tool);
-                } else if (material == Material.LEAVES) {
-                    //do not break leaves
+                if (treeMaterials.contains (material)) {
+                    // don't break blocks that the tool can't afford to break
+                    if (tool.getDurability() < tool.getType().getMaxDurability ()) {
+                        block.breakNaturally(tool);
+                        tool.setDurability((short)(tool.getDurability() + 1));
+                    }
+                } else if (passThroughMaterials.contains (material)) {
+                    //leave this block alone, but keep going
                 }
 
                 Block[] adjacentBlocks = {
@@ -105,9 +149,10 @@ public class LumberjacksDreamListener implements Listener {
 
                 // add in all blocks we haven't already explored
                 for (Block adjacentBlock : adjacentBlocks) {
-                    if (!exploredBlocks.contains (adjacentBlock))
+                    if (!exploredBlocks.contains (adjacentBlock)) {
                         exploredBlocks.add (adjacentBlock);
                         queue.add (adjacentBlock);
+                    }
                 }
 
             }
