@@ -39,7 +39,8 @@ public class LumberjacksDreamListener implements Listener {
             new Material[] {
                 Material.DIRT,
                 Material.GRASS,
-                Material.GRAVEL
+                Material.GRAVEL,
+                Material.SAND
             }
         )
     );
@@ -47,7 +48,6 @@ public class LumberjacksDreamListener implements Listener {
     private static final Set<Material> eligibleToolMaterials = new HashSet<Material> (
         Arrays.asList (
             new Material[] {
-                Material.WOOD_AXE,
                 Material.DIAMOND_AXE
             }
         )
