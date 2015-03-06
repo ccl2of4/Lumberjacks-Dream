@@ -34,14 +34,12 @@ public class LumberjacksDreamListener implements Listener {
         Material blockMaterial = block.getType ();
 
         if (blockMaterial == Material.LOG) {
-            logger.info("Broke log!");
 
             Player player = event.getPlayer ();
             ItemStack tool = player.getItemInHand();
             Material toolMaterial = tool.getType ();
 
             if (toolMaterial == Material.DIAMOND_AXE && checkIfTreeTrunk (block)) {
-                logger.info ("Applying effect!");
                 applyEffect(block, tool);
             }
 
@@ -57,6 +55,7 @@ public class LumberjacksDreamListener implements Listener {
 
         Material material = block.getType();
 
+        // go straight down until we find a dirt block
         while (material == Material.LOG) {
             block = block.getRelative(BlockFace.DOWN);
             material = block.getType();
@@ -104,13 +103,11 @@ public class LumberjacksDreamListener implements Listener {
                         block.getRelative(BlockFace.WEST)
                 };
 
+                // add in all blocks we haven't already explored
                 for (Block adjacentBlock : adjacentBlocks) {
-                    if (!exploredBlocks.contains (adjacentBlock)) {
+                    if (!exploredBlocks.contains (adjacentBlock))
                         exploredBlocks.add (adjacentBlock);
                         queue.add (adjacentBlock);
-                    } else {
-                        logger.info ("Already found that block");
-                    }
                 }
 
             }
@@ -118,6 +115,6 @@ public class LumberjacksDreamListener implements Listener {
             block = queue.poll ();
 
         } while (block != null);
-
     }
 }
+
