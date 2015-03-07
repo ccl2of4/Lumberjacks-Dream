@@ -7,7 +7,7 @@ package me.ccl2of4.LumberjacksDream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LumberjacksDreamLogger {
+public final class LumberjacksDreamLogger {
     public static final Logger logger = Logger.getLogger("Minecraft");
     private static LumberjacksDreamLogger singleton;
     private LumberjacksDreamPlugin plugin;

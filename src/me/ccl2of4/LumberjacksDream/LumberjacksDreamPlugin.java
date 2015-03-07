@@ -8,17 +8,21 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
-public class LumberjacksDreamPlugin extends JavaPlugin
+public final class LumberjacksDreamPlugin extends JavaPlugin
 {
     // Called when the server is being disabled.stop
+    @Override
     public void onDisable ()
     {
         System.out.println(this.getDescription().getName() + " version " + this.getDescription().getVersion() + " disabled!");
     }
 
     // Called when the server is being enabled.
+    @Override
     public void onEnable ()
     {
          // Set up the logger
@@ -27,16 +31,31 @@ public class LumberjacksDreamPlugin extends JavaPlugin
         logger.info (this.getDescription().getName() + " version " + this.getDescription().getVersion() + " enabled!");
 
         //check configuration
-        checkConfig ();
+        if ( checkConfig ()) {
 
-        // set up the listener
-        LumberjacksDreamListener listener = new LumberjacksDreamListener();
-        listener.configure (loadConfig());
-        getServer().getPluginManager().registerEvents(listener, this);
+            // set up the listener
+            LumberjacksDreamListener listener = new LumberjacksDreamListener();
+            listener.configure(pullConfig());
+            getServer().getPluginManager().registerEvents(listener, this);
+        }
 
     }
 
-    private HashMap<String,?> loadConfig () {
+    // Command handler
+    @Override
+    public boolean onCommand (CommandSender sender, Command cmd, String s, String[] args) {
+        if (cmd.getName().equalsIgnoreCase ("LumberjacksDream")) {
+            sender.sendMessage ("Made by ccl2of4 - https://github.com/ccl2of4/LumberjacksDream");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Pull the configuration data out of config.yml and into a map
+     * @return HashMap containing the key,value wanted by LumberjacksDreamListener
+     */
+    private Map<String,?> pullConfig () {
         HashMap<String, Object> result = new HashMap<String, Object> ();
         FileConfiguration config = getConfig ();
 
@@ -47,33 +66,30 @@ public class LumberjacksDreamPlugin extends JavaPlugin
     }
 
     /**
-     * makes sure that all required keys are in config.yml so the rest of the plugin will function without error
-     * if config.yml is missing keys, then we load the default config.yml
+     * Makes sure that all required keys are in config.yml so the rest of the plugin will function without error
+     * Also saves the default config.yml to the data folder if none is present.
+     * @return true of configuration is valid, false otherwise
      */
-    private void checkConfig () {
+    private boolean checkConfig () {
         LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
 
         FileConfiguration config = getConfig ();
 
+        // this will only be an issue if the default config.yml is broken
         for (String key : LumberjacksDreamListener.getConfigKeys ()) {
             if (config.get (key) == null) {
-                logger.warning ("config.yml is invalid; using default config.yml.");
-                saveDefaultConfig ();
+                logger.severe ("configuration key \"" + key + "\' found to be missing. This is a fatal error.");
+                return false;
             }
         }
-    }
 
-    public boolean onCommand (CommandSender sender, Command cmd, String s, String[] args)
-    {
-        if (cmd.getName().equalsIgnoreCase ("author"))
-        {
-            sender.sendMessage ("Made by ccl2of4 - https://github.com/ccl2of4/LumberjacksDream");
-            return true;
+        // save a copy of the default config to the data folder, if necessary
+        File configFile = new File(this.getDataFolder(), "config.yml");
+        if (!configFile.exists ()) {
+            logger.warning("config.yml not found in data folder. Creating default config.yml.");
+            saveDefaultConfig();
         }
-        return false;
-    }
 
-    /*
-        TODO: Make configuration files.
-     */
+        return true;
+    }
 }
