@@ -14,7 +14,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public final class LumberjacksDreamListener implements Listener {
 
@@ -27,8 +26,6 @@ public final class LumberjacksDreamListener implements Listener {
     private Set<Material> passthroughMaterials = new HashSet<Material> ();
     private Set<Material> treeBaseMaterials = new HashSet<Material> ();
     private Set<Material> eligibleToolMaterials = new HashSet<Material> ();
-
-    private JavaPlugin plugin;
 
     /**
      *
