@@ -17,41 +17,66 @@ import org.bukkit.Material;
 
 public class LumberjacksDreamListener implements Listener {
 
-    private static final Set<Material> treeMaterials = new HashSet<Material> (
-        Arrays.asList (
-            new Material[] {
-                Material.LOG,
-                Material.LOG_2
-            }
-        )
-    );
+    public static final String TreeMaterialsKey = "tree_materials";
+    public static final String PassthroughMaterialsKey = "passthrough_materials";
+    public static final String TreeBaseMaterialsKey = "tree_base_materials";
+    public static final String EligibleToolMaterialsKey = "eligible_tool_materials";
 
-    private static final Set<Material> passThroughMaterials = new HashSet<Material> (
-        Arrays.asList (
-            new Material[] {
-                Material.LEAVES,
-            }
-        )
-    );
+    private static Set<Material> treeMaterials = new HashSet<Material> ();
+    private static Set<Material> passthroughMaterials = new HashSet<Material> ();
+    private static Set<Material> treeBaseMaterials = new HashSet<Material> ();
+    private static Set<Material> eligibleToolMaterials = new HashSet<Material> ();
 
-    private static final Set<Material> treeBaseMaterials = new HashSet<Material> (
-        Arrays.asList (
-            new Material[] {
-                Material.DIRT,
-                Material.GRASS,
-                Material.GRAVEL,
-                Material.SAND
-            }
-        )
-    );
+    public static Set<String> getConfigKeys () {
+        return new HashSet<String> (Arrays.asList (new String[] {
+            TreeMaterialsKey,
+            PassthroughMaterialsKey,
+            TreeBaseMaterialsKey,
+            EligibleToolMaterialsKey
+        }));
+    }
 
-    private static final Set<Material> eligibleToolMaterials = new HashSet<Material> (
-        Arrays.asList (
-            new Material[] {
-                Material.DIAMOND_AXE
+    public Material materialForString (String string) {
+        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
+
+        Material[] stuff = Material.class.getEnumConstants ();
+        for (Material material : stuff) {
+            if (material.toString().equals (string))
+                return material;
+        }
+
+        logger.severe ("Bad configuration -- could not find material \"" + string + "\". This is a fatal error.");
+        return null;
+    }
+
+    public void populateMaterialSet (Set<Material> materialsSet, List<String> materialsStringList) {
+        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
+
+        for (String str : materialsStringList) {
+            Material material = materialForString (str);
+            materialsSet.add (material);
+        }
+    }
+
+    public void configure (Map<String,?> configuration) {
+        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
+
+        for (String key : configuration.keySet ()) {
+
+            Object obj = configuration.get (key);
+            if (obj == null) logger.severe (key);
+
+            if (TreeMaterialsKey.equals (key)) {
+                populateMaterialSet (treeMaterials, (List<String>)configuration.get (key));
+            } else if (PassthroughMaterialsKey.equals (key)) {
+                populateMaterialSet (passthroughMaterials, (List<String>)configuration.get (key));
+            } else if (TreeBaseMaterialsKey.equals (key)) {
+                populateMaterialSet (treeBaseMaterials, (List<String>)configuration.get (key));
+            } else if (EligibleToolMaterialsKey.equals (key)) {
+                populateMaterialSet (eligibleToolMaterials, (List<String>)configuration.get (key));
             }
-        )
-    );
+        }
+    }
 
     @EventHandler
     public final void onBlockBreak (BlockBreakEvent event) {
@@ -123,7 +148,7 @@ public class LumberjacksDreamListener implements Listener {
 
             Material material = block.getType ();
 
-            if (!treeMaterials.contains (material) && !passThroughMaterials.contains (material)) {
+            if (!treeMaterials.contains (material) && !passthroughMaterials.contains (material)) {
                 // algorithm stops at non-log, non-leaves blocks
             }
 
@@ -135,7 +160,7 @@ public class LumberjacksDreamListener implements Listener {
                         block.breakNaturally(tool);
                         tool.setDurability((short)(tool.getDurability() + 1));
                     }
-                } else if (passThroughMaterials.contains (material)) {
+                } else if (passthroughMaterials.contains (material)) {
                     //leave this block alone, but keep going
                 }
 

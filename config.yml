@@ -1,0 +1,12 @@
+eligible_tool_materials:
+  - DIAMOND_AXE
+passthrough_materials:
+  - LEAVES
+tree_materials:
+  - LOG
+  - LOG_2
+tree_base_materials:
+  - DIRT
+  - GRASS
+  - GRAVEL
+  - SAND
