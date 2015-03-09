@@ -4,25 +4,19 @@ package me.ccl2of4.LumberjacksDream;
  * Created by Connor on 3/6/15.
  */
 
+import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class LumberjacksDreamLogger {
+public class JavaPluginLogger {
     public static final Logger logger = Logger.getLogger("Minecraft");
-    private static LumberjacksDreamLogger singleton;
-    private LumberjacksDreamPlugin plugin;
+    private JavaPlugin plugin;
 
-    public static LumberjacksDreamLogger sharedLogger () {
-        return singleton == null ? (singleton = new LumberjacksDreamLogger ()) : singleton;
-    }
-
-    public LumberjacksDreamPlugin getPlugin () {
+    public JavaPlugin getPlugin () {
         return plugin;
     }
 
-    public void setPlugin (LumberjacksDreamPlugin plugin) {
-        this.plugin = plugin;
-    }
+    public void setPlugin (JavaPlugin plugin) { this.plugin = plugin; }
 
     public void info (String s)
     {
@@ -38,6 +32,4 @@ public final class LumberjacksDreamLogger {
     {
         logger.log( Level.WARNING, "[" + plugin.getDescription().getName() + "] " + s);
     }
-
-    private LumberjacksDreamLogger () {}
 }

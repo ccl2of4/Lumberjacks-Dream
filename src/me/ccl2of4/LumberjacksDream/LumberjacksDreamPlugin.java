@@ -14,6 +14,8 @@ import java.util.Map;
 
 public final class LumberjacksDreamPlugin extends JavaPlugin
 {
+    private JavaPluginLogger logger;
+
     // Called when the server is being disabled.stop
     @Override
     public void onDisable ()
@@ -26,17 +28,18 @@ public final class LumberjacksDreamPlugin extends JavaPlugin
     public void onEnable ()
     {
          // Set up the logger
-        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
+        logger = new JavaPluginLogger ();
         logger.setPlugin (this);
-        logger.info (this.getDescription().getName() + " version " + this.getDescription().getVersion() + " enabled!");
+        logger.info(this.getDescription().getName() + " version " + this.getDescription().getVersion() + " enabled!");
 
         //check configuration
         if ( checkConfig ()) {
 
             // set up the listener
-            LumberjacksDreamListener listener = new LumberjacksDreamListener();
-            listener.configure(pullConfig());
-            getServer().getPluginManager().registerEvents(listener, this);
+            LumberjacksDreamListener listener = new LumberjacksDreamListener ();
+            listener.setLogger (logger);
+            listener.configure(pullConfig ());
+            getServer().getPluginManager().registerEvents (listener, this);
         }
 
     }
@@ -71,8 +74,6 @@ public final class LumberjacksDreamPlugin extends JavaPlugin
      * @return true of configuration is valid, false otherwise
      */
     private boolean checkConfig () {
-        LumberjacksDreamLogger logger = LumberjacksDreamLogger.sharedLogger ();
-
         FileConfiguration config = getConfig ();
 
         // this will only be an issue if the default config.yml is broken
